@@ -1,18 +1,16 @@
-import React, {useState} from 'react';
-import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MyAppText from './MyAppText';
 
-const Header = ({title}: {title: string}) => {
+const Header = ({ title }: { title: string }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <View style={styles.modal}>
           <Text style={styles.messageModal}>Feature not available yet</Text>
-          <Text
-            style={styles.buttonModal}
-            onPress={() => setModalVisible(!modalVisible)}>
+          <Text style={styles.buttonModal} onPress={() => setModalVisible(!modalVisible)}>
             Close
           </Text>
         </View>
@@ -24,11 +22,7 @@ const Header = ({title}: {title: string}) => {
           <Ionicons name={'heart-outline'} size={25} color={'#a6ade3'} />
         </Pressable>
         <Pressable onPress={() => setModalVisible(!modalVisible)}>
-          <Ionicons
-            name={'chatbubble-ellipses-outline'}
-            size={25}
-            color={'#a6ade3'}
-          />
+          <Ionicons name={'chatbubble-ellipses-outline'} size={25} color={'#a6ade3'} />
         </Pressable>
       </View>
     </View>
@@ -70,7 +64,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     top: '50%',
     left: '50%',
-    transform: [{translateX: -100}, {translateY: -50}],
+    transform: [{ translateX: -100 }, { translateY: -50 }],
   },
   messageModal: {
     paddingVertical: 12,

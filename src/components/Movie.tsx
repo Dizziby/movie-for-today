@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {useAppNavigation} from '../types/types';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { useAppNavigation } from '../types/types';
 
 const Movie = ({
   name,
@@ -32,7 +32,7 @@ const Movie = ({
       onPress={() =>
         navigation.navigate('HomeScreen', {
           screen: 'MovieDetails',
-          params: {id: id},
+          params: { id: id },
         })
       }>
       <Image

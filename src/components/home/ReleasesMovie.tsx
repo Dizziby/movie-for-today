@@ -1,28 +1,27 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import Movie from '../Movie';
-import {useQuery} from '@tanstack/react-query';
-import {GetReleasesResponse} from '../../types/types';
-import {BASE_URL, month} from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetReleasesResponse } from '../../types/types';
+import { BASE_URL, month } from '../../constants/constants';
 
 const ReleasesMovie = () => {
   const currentDate = new Date();
   const currentMonth = month[currentDate.getMonth()];
 
   const fetchReleases = () => {
-    return fetch(
-      `${BASE_URL}/api/v2.1/films/releases?year=2023&month=${currentMonth}&page=1`,
-      {
-        headers: {
-          accept: 'application/json',
-          'X-API-KEY': 'e8feb6b3-532c-4bc2-837d-8f87b17be0fa',
-        },
+    return fetch(`${BASE_URL}/api/v2.1/films/releases?year=2023&month=${currentMonth}&page=1`, {
+      headers: {
+        accept: 'application/json',
+        'X-API-KEY': 'e8feb6b3-532c-4bc2-837d-8f87b17be0fa',
       },
-    ).then(res => res.json());
+    }).then(res => res.json());
   };
 
-  const {data: releases, isLoading: isLoadingReleases} =
-    useQuery<GetReleasesResponse>(['getReleases'], fetchReleases);
+  const { data: releases, isLoading: isLoadingReleases } = useQuery<GetReleasesResponse>(
+    ['getReleases'],
+    fetchReleases,
+  );
 
   return (
     <View style={styles.container}>
@@ -30,12 +29,10 @@ const ReleasesMovie = () => {
         <Text>Loading</Text>
       ) : (
         <View>
-          <Text style={styles.title}>
-            Releases
-          </Text>
+          <Text style={styles.title}>Releases</Text>
           <FlatList
             data={releases?.releases}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <Movie
                 id={item.filmId}
                 name={item.nameRu}

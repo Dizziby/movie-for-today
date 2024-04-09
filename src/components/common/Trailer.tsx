@@ -1,19 +1,12 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {BASE_URL} from '../../constants/constants';
-import {useQuery} from '@tanstack/react-query';
-import {GetTrailerMovieResponse} from '../../types/types';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { BASE_URL } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetTrailerMovieResponse } from '../../types/types';
 import Dropdown from './Dropdown';
-import {
-  ActivityIndicator,
-  Alert,
-  AppState,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Alert, AppState, StyleSheet, Text, View } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
-const Trailer = ({id}: {id: number}) => {
+const Trailer = ({ id }: { id: number }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const togglePlaying = () => {
     setIsPlaying(prev => !prev);
@@ -36,7 +29,7 @@ const Trailer = ({id}: {id: number}) => {
     }).then(res => res.json());
   };
 
-  const {data, isLoading} = useQuery<GetTrailerMovieResponse>(
+  const { data, isLoading } = useQuery<GetTrailerMovieResponse>(
     ['getTrailerMovie', id],
     fetchTrailerMovie,
   );
@@ -46,10 +39,7 @@ const Trailer = ({id}: {id: number}) => {
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
         console.log('App has come to the foreground!');
       }
 
@@ -79,12 +69,7 @@ const Trailer = ({id}: {id: number}) => {
       {isLoading ? (
         <ActivityIndicator />
       ) : data?.items?.length && idVideo ? (
-        <YoutubePlayer
-          height={300}
-          play={false}
-          videoId={idVideo}
-          onChangeState={onStateChange}
-        />
+        <YoutubePlayer height={300} play={false} videoId={idVideo} onChangeState={onStateChange} />
       ) : (
         <Text style={styles.message}>No videos</Text>
       )}

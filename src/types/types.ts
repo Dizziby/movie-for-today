@@ -1,4 +1,4 @@
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 export type RootStackParamList = {
   HomeScreen: HomeStackParamList;

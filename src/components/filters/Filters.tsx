@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   Button,
@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {BASE_URL, X_API_KEY} from '../../constants/constants';
-import {useQuery} from '@tanstack/react-query';
-import {GetFiltersResponse} from '../../types/types';
-import {Picker} from '@react-native-picker/picker';
+import { BASE_URL, X_API_KEY } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetFiltersResponse } from '../../types/types';
+import { Picker } from '@react-native-picker/picker';
 import Movie from '../Movie';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -56,7 +56,7 @@ export const Filters = () => {
     ).then(res => res.json());
   };
 
-  const {data, isLoading} = useQuery<GetFiltersResponse>({
+  const { data, isLoading } = useQuery<GetFiltersResponse>({
     queryKey: ['getFilters', filters],
     queryFn: fetchFilters,
   });
@@ -65,7 +65,7 @@ export const Filters = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{display: showFilters ? 'flex' : 'none'}}>
+      <View style={{ display: showFilters ? 'flex' : 'none' }}>
         <View style={styles.pair}>
           <View style={styles.inputBlock}>
             <Text>SORTING</Text>
@@ -73,10 +73,8 @@ export const Filters = () => {
               style={styles.dropdown}
               selectedValue={filters.sorting}
               onValueChange={(itemValue, itemIndex) =>
-                setFilters(prevState => ({...prevState, sorting: itemValue}))
-              }
-
-            >
+                setFilters(prevState => ({ ...prevState, sorting: itemValue }))
+              }>
               <Picker.Item label="RATING" value="RATING" />
               <Picker.Item label="NUM_VOTE" value="NUM_VOTE" />
               <Picker.Item label="YEAR" value="YEAR" />
@@ -88,7 +86,7 @@ export const Filters = () => {
               style={styles.dropdown}
               selectedValue={filters.type}
               onValueChange={(itemValue, itemIndex) =>
-                setFilters(prevState => ({...prevState, type: itemValue}))
+                setFilters(prevState => ({ ...prevState, type: itemValue }))
               }>
               <Picker.Item label="ALL" value="ALL" />
               <Picker.Item label="FILM" value="FILM" />
@@ -105,9 +103,7 @@ export const Filters = () => {
             <TextInput
               style={styles.input}
               value={filters.minRating}
-              onChangeText={text =>
-                setFilters(prevState => ({...prevState, minRating: text}))
-              }
+              onChangeText={text => setFilters(prevState => ({ ...prevState, minRating: text }))}
             />
           </View>
           <View style={styles.inputBlock}>
@@ -115,9 +111,7 @@ export const Filters = () => {
             <TextInput
               style={styles.input}
               value={filters.maxRating}
-              onChangeText={text =>
-                setFilters(prevState => ({...prevState, maxRating: text}))
-              }
+              onChangeText={text => setFilters(prevState => ({ ...prevState, maxRating: text }))}
             />
           </View>
         </View>
@@ -128,9 +122,7 @@ export const Filters = () => {
             <TextInput
               style={styles.input}
               value={filters.fromYear}
-              onChangeText={text =>
-                setFilters(prevState => ({...prevState, fromYear: text}))
-              }
+              onChangeText={text => setFilters(prevState => ({ ...prevState, fromYear: text }))}
             />
           </View>
           <View style={styles.inputBlock}>
@@ -138,9 +130,7 @@ export const Filters = () => {
             <TextInput
               style={styles.input}
               value={filters.toYear}
-              onChangeText={text =>
-                setFilters(prevState => ({...prevState, toYear: text}))
-              }
+              onChangeText={text => setFilters(prevState => ({ ...prevState, toYear: text }))}
             />
           </View>
         </View>
@@ -149,9 +139,7 @@ export const Filters = () => {
         <TextInput
           style={styles.input}
           value={filters.keyword}
-          onChangeText={text =>
-            setFilters(prevState => ({...prevState, keyword: text}))
-          }
+          onChangeText={text => setFilters(prevState => ({ ...prevState, keyword: text }))}
           placeholder={'Keywords'}
           placeholderTextColor={'#a6ade3'}
         />
@@ -174,8 +162,13 @@ export const Filters = () => {
         <View>
           <FlatList
             data={data?.items}
-            renderItem={({item}) => (
-              <Movie name={item.nameRu} poster={item.posterUrlPreview} rating={item.ratingKinopoisk} id={item.kinopoiskId}/>
+            renderItem={({ item }) => (
+              <Movie
+                name={item.nameRu}
+                poster={item.posterUrlPreview}
+                rating={item.ratingKinopoisk}
+                id={item.kinopoiskId}
+              />
             )}
             keyExtractor={item => String(item.kinopoiskId)}
             numColumns={2}
@@ -201,7 +194,6 @@ const styles = StyleSheet.create({
     padding: 0,
     borderColor: '#a6ade3',
     backgroundColor: '#a6ade3',
-
   },
 
   input: {

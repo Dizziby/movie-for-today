@@ -1,18 +1,12 @@
 import React from 'react';
-import {BASE_URL} from '../../constants/constants';
-import {useQuery} from '@tanstack/react-query';
-import {GetSimilarsMovieResponse} from '../../types/types';
+import { BASE_URL } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetSimilarsMovieResponse } from '../../types/types';
 import Dropdown from './Dropdown';
-import {
-  ActivityIndicator,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text } from 'react-native';
 import Movie from '../Movie';
 
-const Similars = ({id}: {id: number}) => {
+const Similars = ({ id }: { id: number }) => {
   const fetchSimilarsMovie = () => {
     return fetch(`${BASE_URL}/api/v2.2/films/${id}/similars`, {
       headers: {
@@ -22,7 +16,7 @@ const Similars = ({id}: {id: number}) => {
     }).then(res => res.json());
   };
 
-  const {data, isLoading} = useQuery<GetSimilarsMovieResponse>(
+  const { data, isLoading } = useQuery<GetSimilarsMovieResponse>(
     ['getSimilarsMovie', id],
     fetchSimilarsMovie,
   );
@@ -34,12 +28,8 @@ const Similars = ({id}: {id: number}) => {
       ) : data?.items?.length ? (
         <FlatList
           data={data?.items}
-          renderItem={({item}) => (
-            <Movie
-              name={item.nameRu}
-              poster={item.posterUrlPreview}
-              id={item.filmId}
-            />
+          renderItem={({ item }) => (
+            <Movie name={item.nameRu} poster={item.posterUrlPreview} id={item.filmId} />
           )}
           keyExtractor={item => String(item.filmId)}
           numColumns={1}
@@ -58,7 +48,7 @@ export default Similars;
 const styles = StyleSheet.create({
   message: {
     textAlign: 'center',
-    color: "#fff",
-    marginBottom: 8
+    color: '#fff',
+    marginBottom: 8,
   },
 });

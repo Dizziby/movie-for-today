@@ -1,17 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import {StyleSheet, useColorScheme, View} from 'react-native';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {NavigationContainer} from '@react-navigation/native';
-import {Main} from './src/Main';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { Main } from './src/Main';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 

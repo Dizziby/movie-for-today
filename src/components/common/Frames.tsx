@@ -1,18 +1,12 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-} from 'react-native';
-import {BASE_URL} from '../../constants/constants';
-import {useQuery} from '@tanstack/react-query';
-import {GetFramesMovieResponse} from '../../types/types';
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text } from 'react-native';
+import { BASE_URL } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetFramesMovieResponse } from '../../types/types';
 import Dropdown from './Dropdown';
 import Movie from '../Movie';
 
-const Frames = ({id}: {id: number}) => {
+const Frames = ({ id }: { id: number }) => {
   const fetchFramesMovie = () => {
     return fetch(`${BASE_URL}/api/v2.2/films/${id}/images?type=STILL&page=1`, {
       headers: {
@@ -22,7 +16,7 @@ const Frames = ({id}: {id: number}) => {
     }).then(res => res.json());
   };
 
-  const {data, isLoading} = useQuery<GetFramesMovieResponse>(
+  const { data, isLoading } = useQuery<GetFramesMovieResponse>(
     ['getFramesMovie', id],
     fetchFramesMovie,
   );
@@ -34,7 +28,7 @@ const Frames = ({id}: {id: number}) => {
       ) : data?.items?.length ? (
         <FlatList
           data={data?.items}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Image
               style={styles.frame}
               source={{

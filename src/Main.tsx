@@ -1,25 +1,24 @@
-import React, {ReactElement} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {RootStackParamList} from './types/types';
-import {HomeScreen} from './screen/home/HomeScreen';
-import {AboutUs} from './screen/aboutUs/AboutUs';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Top} from './components/top/Top';
-import {Filters} from './components/filters/Filters';
-import {Search} from './components/search/Search';
+import React, { ReactElement } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { RootStackParamList } from './types/types';
+import { HomeScreen } from './screen/home/HomeScreen';
+import { AboutUs } from './screen/aboutUs/AboutUs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Top } from './components/top/Top';
+import { Filters } from './components/filters/Filters';
+import { Search } from './components/search/Search';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Header from './components/common/Header';
-import {FiltersScreen} from './screen/filters/FiltersScreen';
-import {TopScreen} from './screen/top/TopScreen';
-import {SearchScreen} from './screen/search/SearchScreen';
+import { FiltersScreen } from './screen/filters/FiltersScreen';
+import { TopScreen } from './screen/top/TopScreen';
+import { SearchScreen } from './screen/search/SearchScreen';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
 export const Main = (): ReactElement => (
   <View style={styles.container}>
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
           let iconName = '';
           switch (route.name) {
             case 'HomeScreen':
@@ -48,7 +47,7 @@ export const Main = (): ReactElement => (
         // tabBarActiveBackgroundColor: '#1b2937',
         // tabBarInactiveBackgroundColor: '#1b2937',
         tabBarHideOnKeyboard: true,
-        tabBarStyle: {backgroundColor: '#2b2c30'},
+        tabBarStyle: { backgroundColor: '#2b2c30' },
       })}>
       <Tab.Screen
         name="HomeScreen"

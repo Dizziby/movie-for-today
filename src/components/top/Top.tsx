@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
-import {BASE_URL, X_API_KEY} from '../../constants/constants';
-import {useQuery} from '@tanstack/react-query';
-import {GetTopResponse} from '../../types/types';
-import {Picker} from '@react-native-picker/picker';
+import React, { useState } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { BASE_URL, X_API_KEY } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetTopResponse } from '../../types/types';
+import { Picker } from '@react-native-picker/picker';
 import Movie from '../Movie';
 
 export const Top = () => {
@@ -18,7 +18,7 @@ export const Top = () => {
     }).then(res => res.json());
   };
 
-  const {data, isLoading} = useQuery<GetTopResponse>({
+  const { data, isLoading } = useQuery<GetTopResponse>({
     queryKey: ['getTop', topType],
     queryFn: fetchTop,
     enabled: !!topType,
@@ -31,10 +31,7 @@ export const Top = () => {
         selectedValue={topType}
         onValueChange={(itemValue, itemIndex) => setTopType(itemValue)}>
         <Picker.Item label="TOP 250 BEST FILMS" value="TOP_250_BEST_FILMS" />
-        <Picker.Item
-          label="TOP 100 POPULAR FILMS"
-          value="TOP_100_POPULAR_FILMS"
-        />
+        <Picker.Item label="TOP 100 POPULAR FILMS" value="TOP_100_POPULAR_FILMS" />
         <Picker.Item label="TOP AWAIT FILMS" value="TOP_AWAIT_FILMS" />
       </Picker>
       {isLoading ? (
@@ -43,7 +40,7 @@ export const Top = () => {
         <View>
           <FlatList
             data={data?.films}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <Movie
                 name={item.nameRu}
                 poster={item.posterUrlPreview}
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#111111',
     paddingHorizontal: 10,
     paddingVertical: 10,
-    paddingBottom: 50
+    paddingBottom: 50,
   },
   dropdown: {
     color: '#646d79',

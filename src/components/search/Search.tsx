@@ -1,32 +1,23 @@
-import React, {useState} from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  TextInput,
-  View,
-  Text,
-} from 'react-native';
-import {BASE_URL, X_API_KEY} from '../../constants/constants';
-import {useQuery} from '@tanstack/react-query';
-import {GetSearchResponse} from '../../types/types';
+import React, { useState } from 'react';
+import { ActivityIndicator, StyleSheet, TextInput, View, Text } from 'react-native';
+import { BASE_URL, X_API_KEY } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetSearchResponse } from '../../types/types';
 import SearchMovie from './SearchMovie';
 
 export const Search = () => {
   const [inputValue, setInputValue] = useState('');
 
   const fetchSearch = () => {
-    return fetch(
-      `${BASE_URL}/api/v2.1/films/search-by-keyword?keyword=${inputValue}&page=1`,
-      {
-        headers: {
-          accept: 'application/json',
-          'X-API-KEY': X_API_KEY,
-        },
+    return fetch(`${BASE_URL}/api/v2.1/films/search-by-keyword?keyword=${inputValue}&page=1`, {
+      headers: {
+        accept: 'application/json',
+        'X-API-KEY': X_API_KEY,
       },
-    ).then(res => res.json());
+    }).then(res => res.json());
   };
 
-  const {data, isLoading} = useQuery<GetSearchResponse>({
+  const { data, isLoading } = useQuery<GetSearchResponse>({
     queryKey: ['getSearch', inputValue],
     queryFn: fetchSearch,
     enabled: !!inputValue,

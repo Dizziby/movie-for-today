@@ -1,21 +1,13 @@
-import React, {ReactNode, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { ReactNode, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Dropdown = ({
-  nameButton,
-  children,
-}: {
-  nameButton: string;
-  children: ReactNode;
-}) => {
+const Dropdown = ({ nameButton, children }: { nameButton: string; children: ReactNode }) => {
   const [show, setShow] = useState(false);
 
   return (
     <View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => setShow(prevState => !prevState)}>
+      <TouchableOpacity style={styles.button} onPress={() => setShow(prevState => !prevState)}>
         <Text style={styles.buttonText}>{nameButton}</Text>
         {show ? (
           <Ionicons name={'caret-up-outline'} size={15} color={'#fff'} />

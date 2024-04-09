@@ -1,20 +1,13 @@
-import React, {useState} from 'react';
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-} from 'react-native';
-import {BASE_URL} from '../../constants/constants';
-import {useQuery} from '@tanstack/react-query';
-import {GetInfoMovieResponse} from '../../types/types';
+import React, { useState } from 'react';
+import { FlatList, Image, StyleSheet, Text, ScrollView, View } from 'react-native';
+import { BASE_URL } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetInfoMovieResponse } from '../../types/types';
 import Frames from '../../components/common/Frames';
 import Similars from '../../components/common/Similars';
 import Trailer from '../../components/common/Trailer';
 
-const MovieDetails = ({route}: any) => {
+const MovieDetails = ({ route }: any) => {
   const fetchInfoMovie = () => {
     return fetch(`${BASE_URL}/api/v2.2/films/${route.params.id}`, {
       headers: {
@@ -24,7 +17,7 @@ const MovieDetails = ({route}: any) => {
     }).then(res => res.json());
   };
 
-  const {data, isLoading} = useQuery<GetInfoMovieResponse>(
+  const { data, isLoading } = useQuery<GetInfoMovieResponse>(
     ['getInfoMovie', route.params.id],
     fetchInfoMovie,
   );
@@ -38,22 +31,15 @@ const MovieDetails = ({route}: any) => {
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.infoBlock}>
-            <Image
-              style={styles.poster}
-              source={{uri: data?.posterUrlPreview}}
-            />
+            <Image style={styles.poster} source={{ uri: data?.posterUrlPreview }} />
             <View style={styles.info}>
               <Text style={styles.name}>{data?.nameRu}</Text>
               <Text>
                 {data?.ratingKinopoisk && (
-                  <Text style={styles.ratingKinopoisk}>
-                    Kinopoisk: {data?.ratingKinopoisk}{' '}
-                  </Text>
+                  <Text style={styles.ratingKinopoisk}>Kinopoisk: {data?.ratingKinopoisk} </Text>
                 )}
                 {data?.ratingImdb && (
-                  <Text style={styles.ratingImdb}>
-                    Imdb: {data?.ratingImdb}
-                  </Text>
+                  <Text style={styles.ratingImdb}>Imdb: {data?.ratingImdb}</Text>
                 )}
               </Text>
               <Text>
@@ -71,9 +57,7 @@ const MovieDetails = ({route}: any) => {
                   </Text>
                 ))}
               </Text>
-              {data?.slogan && (
-                <Text style={styles.slogan}>{data?.slogan} </Text>
-              )}
+              {data?.slogan && <Text style={styles.slogan}>{data?.slogan} </Text>}
             </View>
           </View>
 
@@ -102,8 +86,7 @@ const styles = StyleSheet.create({
     height: 600,
   },
   info: {
-    backgroundColor:
-      'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%)',
+    backgroundColor: 'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%)',
     alignItems: 'center',
     position: 'absolute',
     width: '100%',
