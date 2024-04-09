@@ -9,7 +9,7 @@ const SearchMovie = ({films}: {films: ISearchMovie[]}) => {
       <FlatList
         data={films}
         renderItem={({item}) => (
-          <Movie name={item.nameRu} poster={item.posterUrlPreview} rating={item.rating}/>
+          <Movie name={item.nameRu} poster={item.posterUrlPreview} rating={item.rating} id={item.filmId} />
         )}
         keyExtractor={item => String(item.filmId)}
         numColumns={2}

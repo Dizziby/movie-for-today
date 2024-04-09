@@ -13,7 +13,8 @@ import {BASE_URL, X_API_KEY} from '../../constants/constants';
 import {useQuery} from '@tanstack/react-query';
 import {GetFiltersResponse} from '../../types/types';
 import {Picker} from '@react-native-picker/picker';
-import Movie from '../../components/Movie';
+import Movie from '../Movie';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface IFilters {
   sorting: string;
@@ -73,7 +74,9 @@ export const Filters = () => {
               selectedValue={filters.sorting}
               onValueChange={(itemValue, itemIndex) =>
                 setFilters(prevState => ({...prevState, sorting: itemValue}))
-              }>
+              }
+
+            >
               <Picker.Item label="RATING" value="RATING" />
               <Picker.Item label="NUM_VOTE" value="NUM_VOTE" />
               <Picker.Item label="YEAR" value="YEAR" />
@@ -149,13 +152,20 @@ export const Filters = () => {
           onChangeText={text =>
             setFilters(prevState => ({...prevState, keyword: text}))
           }
+          placeholder={'Keywords'}
+          placeholderTextColor={'#a6ade3'}
         />
       </View>
 
       <TouchableOpacity
         style={styles.button}
         onPress={() => setShowFilters(prevState => !prevState)}>
-        <Text>Filters</Text>
+        <Text style={styles.buttonText}>Filters</Text>
+        {showFilters ? (
+          <Ionicons name={'caret-up-outline'} size={15} color={'#fff'} />
+        ) : (
+          <Ionicons name={'caret-down-outline'} size={15} color={'#fff'} />
+        )}
       </TouchableOpacity>
 
       {isLoading ? (
@@ -165,7 +175,7 @@ export const Filters = () => {
           <FlatList
             data={data?.items}
             renderItem={({item}) => (
-              <Movie name={item.nameRu} poster={item.posterUrlPreview} />
+              <Movie name={item.nameRu} poster={item.posterUrlPreview} rating={item.ratingKinopoisk} id={item.kinopoiskId}/>
             )}
             keyExtractor={item => String(item.kinopoiskId)}
             numColumns={2}
@@ -179,7 +189,7 @@ export const Filters = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1b2937',
+    backgroundColor: '#111111',
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
@@ -189,6 +199,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     margin: 0,
     padding: 0,
+    borderColor: '#a6ade3',
+    backgroundColor: '#a6ade3',
+
   },
 
   input: {
@@ -197,6 +210,8 @@ const styles = StyleSheet.create({
     height: 32,
     paddingVertical: 4,
     paddingHorizontal: 8,
+    borderColor: '#a6ade3',
+    color: '#a6ade3',
   },
   pair: {
     display: 'flex',
@@ -207,9 +222,19 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   button: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
     marginVertical: 8,
-    backgroundColor: 'grey',
-    paddingVertical: 8,
-    paddingHorizontal: 4,
+    backgroundColor: '#a6ade3',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    width: '100%',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
   },
 });

@@ -1,29 +1,17 @@
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import PremieresMovie from '../../components/home/PremieresMovie';
 import ReleasesMovie from '../../components/home/ReleasesMovie';
 
-export const Home = () => {
+const Home = () => {
   return (
-    <View style={styles.container}>
-      <View>
-        <ScrollView>
-          <PremieresMovie />
-          <ReleasesMovie />
-        </ScrollView>
-      </View>
+    <View>
+      <ScrollView>
+        <PremieresMovie />
+        <ReleasesMovie />
+      </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1b2937',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-  },
-  text: {
-    color: '#f12c4c',
-  },
-});
+export default Home;

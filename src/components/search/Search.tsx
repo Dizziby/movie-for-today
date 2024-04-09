@@ -9,7 +9,7 @@ import {
 import {BASE_URL, X_API_KEY} from '../../constants/constants';
 import {useQuery} from '@tanstack/react-query';
 import {GetSearchResponse} from '../../types/types';
-import SearchMovie from '../../components/search/SearchMovie';
+import SearchMovie from './SearchMovie';
 
 export const Search = () => {
   const [inputValue, setInputValue] = useState('');
@@ -38,6 +38,8 @@ export const Search = () => {
         style={styles.input}
         onChangeText={setInputValue}
         value={inputValue}
+        placeholder={'Enter movie title'}
+        placeholderTextColor={'#a6ade3'}
       />
       {isLoading && inputValue ? (
         <ActivityIndicator />
@@ -53,16 +55,18 @@ export const Search = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1b2937',
+    backgroundColor: '#111111',
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
   input: {
     borderWidth: 1,
     borderRadius: 8,
-    height: 36,
+    height: 40,
     paddingHorizontal: 8,
     marginBottom: 4,
+    borderColor: '#a6ade3',
+    color: '#a6ade3',
   },
   message: {
     display: 'flex',

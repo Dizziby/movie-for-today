@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import {BASE_URL, X_API_KEY} from '../../constants/constants';
 import {useQuery} from '@tanstack/react-query';
 import {GetTopResponse} from '../../types/types';
 import {Picker} from '@react-native-picker/picker';
-import Movie from '../../components/Movie';
+import Movie from '../Movie';
 
 export const Top = () => {
   const [topType, setTopType] = useState('TOP_250_BEST_FILMS');
@@ -36,7 +30,7 @@ export const Top = () => {
         style={styles.dropdown}
         selectedValue={topType}
         onValueChange={(itemValue, itemIndex) => setTopType(itemValue)}>
-        <Picker.Item label="TOP 250 BEST FILMS" value="TOP_250_BEST_FILMS" /
+        <Picker.Item label="TOP 250 BEST FILMS" value="TOP_250_BEST_FILMS" />
         <Picker.Item
           label="TOP 100 POPULAR FILMS"
           value="TOP_100_POPULAR_FILMS"
@@ -50,7 +44,12 @@ export const Top = () => {
           <FlatList
             data={data?.films}
             renderItem={({item}) => (
-              <Movie name={item.nameRu} poster={item.posterUrlPreview} />
+              <Movie
+                name={item.nameRu}
+                poster={item.posterUrlPreview}
+                rating={item.rating}
+                id={item.filmId}
+              />
             )}
             keyExtractor={item => String(item.filmId)}
             numColumns={2}
@@ -64,11 +63,13 @@ export const Top = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1b2937',
+    backgroundColor: '#111111',
     paddingHorizontal: 10,
     paddingVertical: 10,
+    paddingBottom: 50
   },
   dropdown: {
     color: '#646d79',
+    zIndex: 10,
   },
 });

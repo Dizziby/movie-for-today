@@ -2,13 +2,16 @@ import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import Movie from '../Movie';
 import {useQuery} from '@tanstack/react-query';
-import {GetPremieresResponse, GetReleasesResponse} from '../../types/types';
-import {BASE_URL} from '../../constants/constants';
+import {GetReleasesResponse} from '../../types/types';
+import {BASE_URL, month} from '../../constants/constants';
 
 const ReleasesMovie = () => {
+  const currentDate = new Date();
+  const currentMonth = month[currentDate.getMonth()];
+
   const fetchReleases = () => {
     return fetch(
-      `${BASE_URL}/api/v2.1/films/releases?year=2023&month=JANUARY&page=1`,
+      `${BASE_URL}/api/v2.1/films/releases?year=2023&month=${currentMonth}&page=1`,
       {
         headers: {
           accept: 'application/json',
@@ -22,19 +25,27 @@ const ReleasesMovie = () => {
     useQuery<GetReleasesResponse>(['getReleases'], fetchReleases);
 
   return (
-    <View>
+    <View style={styles.container}>
       {isLoadingReleases ? (
         <Text>Loading</Text>
       ) : (
         <View>
-          <Text style={styles.title}>Releases</Text>
+          <Text style={styles.title}>
+            Releases
+          </Text>
           <FlatList
             data={releases?.releases}
             renderItem={({item}) => (
-              <Movie name={item.nameRu} poster={item.posterUrlPreview} />
+              <Movie
+                id={item.filmId}
+                name={item.nameRu}
+                poster={item.posterUrlPreview}
+                rating={item.rating}
+              />
             )}
             keyExtractor={item => String(item.filmId)}
             horizontal={true}
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       )}
@@ -45,6 +56,11 @@ const ReleasesMovie = () => {
 export default ReleasesMovie;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#111111',
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
   title: {
     color: '#646d79',
   },
